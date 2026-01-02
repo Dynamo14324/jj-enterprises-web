@@ -116,9 +116,8 @@ export function useWebVitals(): void {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    import('web-vitals').then(({ onCLS, onFID, onFCP, onLCP, onTTFB, onINP }) => {
+    import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
       onCLS(sendToAnalytics)
-      onFID(sendToAnalytics)
       onFCP(sendToAnalytics)
       onLCP(sendToAnalytics)
       onTTFB(sendToAnalytics)
@@ -256,50 +255,4 @@ export function preloadCriticalResources() {
   }
 }
 
-// Performance budget checker
-export function checkPerformanceBudget() {
-  if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
-    const budgets = {
-      LCP: 2500, // Largest Contentful Paint
-      FID: 100,  // First Input Delay
-      CLS: 0.1,  // Cumulative Layout Shift
-      FCP: 1800, // First Contentful Paint
-      TTFB: 800, // Time to First Byte
-    }
 
-    // Check against budgets
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS((metric: any) => {
-        if (metric.value > budgets.CLS) {
-          console.warn(`CLS budget exceeded: ${metric.value} > ${budgets.CLS}`)
-        }
-      })
-
-      getFID((metric: any) => {
-        if (metric.value > budgets.FID) {
-          console.warn(`FID budget exceeded: ${metric.value}ms > ${budgets.FID}ms`)
-        }
-      })
-
-      getFCP((metric: any) => {
-        if (metric.value > budgets.FCP) {
-          console.warn(`FCP budget exceeded: ${metric.value}ms > ${budgets.FCP}ms`)
-        }
-      })
-
-      getLCP((metric: any) => {
-        if (metric.value > budgets.LCP) {
-          console.warn(`LCP budget exceeded: ${metric.value}ms > ${budgets.LCP}ms`)
-        }
-      })
-
-      getTTFB((metric: any) => {
-        if (metric.value > budgets.TTFB) {
-          console.warn(`TTFB budget exceeded: ${metric.value}ms > ${budgets.TTFB}ms`)
-        }
-      })
-    }).catch(() => {
-      console.log('Performance budget checking not available')
-    })
-  }
-}
