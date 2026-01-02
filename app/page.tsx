@@ -2,8 +2,6 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Suspense } from "react"
-import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Environment } from "@react-three/drei"
 import { Button } from "@/components/ui/button"
 import {
   Phone,
@@ -28,14 +26,13 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { HeroBox } from "@/components/hero-box"
+import Hero3DWrapper from "@/components/hero-3d-wrapper"
 import { FeatureImage } from "@/components/optimized-image"
 import { PerformanceMonitor } from "@/lib/performance"
 import { ProductShowcase } from "@/components/product-showcase"
 import { ContactSection } from "@/components/contact-section"
 import { TrustSignals } from "@/components/trust-signals"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { FloatingBoxes } from "@/components/floating-boxes"
 
 function SimpleLoader() {
   return (
@@ -56,28 +53,7 @@ export default function HomePage() {
         {/* Premium Hero Section */}
         <section className="relative min-h-screen overflow-hidden flex items-center justify-center bg-gradient-mesh" aria-label="Hero section with 3D packaging showcase">
           {/* Animated Background Elements */}
-          <div className="absolute inset-0 z-0 opacity-40">
-            <Canvas camera={{ position: [0, 0, 10], fov: 60 }} className="w-full h-full">
-              <Suspense fallback={null}>
-                <ambientLight intensity={0.8} />
-                <directionalLight position={[10, 10, 5]} intensity={1.5} />
-                <pointLight position={[-10, -10, -5]} intensity={1} color="#f97316" />
-                <HeroBox />
-                <FloatingBoxes />
-                <Environment preset="night" background={false} />
-                <OrbitControls
-                  enableZoom={false}
-                  enablePan={false}
-                  autoRotate
-                  autoRotateSpeed={1.5}
-                  maxPolarAngle={Math.PI / 1.5}
-                  minPolarAngle={Math.PI / 3}
-                  enableDamping={true}
-                  dampingFactor={0.03}
-                />
-              </Suspense>
-            </Canvas>
-          </div>
+          <Hero3DWrapper />
 
           {/* Glass Overlay Content */}
           <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-20">
