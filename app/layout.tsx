@@ -51,6 +51,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://jjenterprises.com'),
   title: {
     default: "JJ Enterprises - Premium Paper Box Packaging Solutions | Custom Corrugated Boxes India",
     template: "%s | JJ Enterprises - Paper Packaging Solutions",

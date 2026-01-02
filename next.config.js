@@ -117,8 +117,7 @@ const nextConfig = {
     return config
   },
 
-  // Output configuration - removed standalone for Vercel deployment
-  // output: 'standalone',
+
 
   // Redirects for SEO
   async redirects() {
